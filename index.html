@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поліцейські офіцери громади | Криворізька міська територіальна громада</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        police: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            600: '#1d4ed8',
+                            750: '#0f296b',
+                            900: '#0a1931',
+                            950: '#050d1a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .carousel-img-container {
+            max-height: 550px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="bg-police-950 text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="router.navigate('home')">
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg border border-blue-400">
+                        <i class="fa-solid fa-shield-halved text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white" id="site-header-title">Поліцейські офіцери громади</h1>
+                        <p class="text-xs sm:text-sm text-slate-300 font-medium" id="site-header-subtitle">Криворізької міської територіальної громади</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-4">
+                    <button onclick="router.navigate('home')" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition hover:bg-white/10 active text-blue-400" data-target="home">Головна</button>
+                    <button onclick="router.navigate('news')" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition hover:bg-white/10 text-slate-300" data-target="news">Новини</button>
+                    <button onclick="router.navigate('management')" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition hover:bg-white/10 text-slate-300" data-target="management">Керівництво</button>
+                    <button onclick="router.navigate('officers')" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition hover:bg-white/10 text-slate-300" data-target="officers">Офіцери громади</button>
+                </nav>
+
+                <!-- Admin Action & Mobile Toggle -->
+                <div class="flex items-center space-x-3">
+                    <div id="admin-auth-widget">
+                        <button onclick="openLoginModal()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span class="hidden sm:inline">Увійти</span>
+                        </button>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-white/10 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-police-900 border-t border-slate-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="router.navigate('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Головна</button>
+            <button onclick="router.navigate('news'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Новини</button>
+            <button onclick="router.navigate('management'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Керівництво</button>
+            <button onclick="router.navigate('officers'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Поліцейські офіцери громади</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- VIEW: HOME (Landing Page) -->
+        <div id="view-home" class="view-section space-y-12 pb-16">
+            
+            <!-- Carousel Section: Безпека громади -->
+            <section class="bg-slate-900 text-white relative overflow-hidden shadow-xl">
+                <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-blue-400 font-semibold uppercase tracking-wider text-xs">Галерея</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold" id="title-carousel">Безпека громади</h2>
+                        </div>
+                        <div id="admin-carousel-btn" class="hidden">
+                            <button onclick="openCarouselModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-plus"></i><span>Додати слайд</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Wrapper -->
+                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+                        <div id="carousel-slides-container" class="relative w-full h-[350px] sm:h-[450px] md:h-[500px] flex items-center justify-center bg-slate-950">
+                            <!-- Slides dynamically injected -->
+                        </div>
+
+                        <!-- Carousel Controls -->
+                        <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition backdrop-blur-sm z-10">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition backdrop-blur-sm z-10">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                        <!-- Slide Title Overlay & Indicators -->
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center z-10">
+                            <div class="text-center sm:text-left mb-2 sm:mb-0">
+                                <h3 id="carousel-active-title" class="text-lg sm:text-xl font-bold text-white drop-shadow">Завантаження...</h3>
+                            </div>
+                            <div id="carousel-dots" class="flex space-x-2">
+                                <!-- Dots dynamically injected -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Home News Preview Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900" id="title-news-section">Останні новини</h2>
+                        <p class="text-slate-600 text-sm mt-1">Актуальна інформація про безпеку та діяльність офіцерів</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div id="admin-news-btn" class="hidden">
+                            <button onclick="openNewsModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-1.5 shadow-sm">
+                                <i class="fa-solid fa-plus"></i><span>Додати новину</span>
+                            </button>
+                        </div>
+                        <button onclick="router.navigate('news')" class="text-blue-600 hover:text-blue-800 font-semibold text-sm flex items-center space-x-1">
+                            <span>Усі новини</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="home-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- News cards injected here -->
+                </div>
+            </section>
+
+            <!-- Home Management Preview Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900" id="title-management-section">Керівництво</h2>
+                        <p class="text-slate-600 text-sm mt-1">Координація та управління підрозділом</p>
+                    </div>
+                    <div id="admin-mgmt-btn" class="hidden">
+                        <button onclick="openManagementModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i><span>Додати керівника</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="home-management-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Management cards injected here -->
+                </div>
+            </section>
+
+            <!-- Home Officers Preview Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900" id="title-officers-section">Поліцейські офіцери громади</h2>
+                        <p class="text-slate-600 text-sm mt-1">Ваші представники правопорядку на територіях</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div id="admin-officer-btn" class="hidden">
+                            <button onclick="openOfficerModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-1.5 shadow-sm">
+                                <i class="fa-solid fa-plus"></i><span>Додати офіцера</span>
+                            </button>
+                        </div>
+                        <button onclick="router.navigate('officers')" class="text-blue-600 hover:text-blue-800 font-semibold text-sm flex items-center space-x-1">
+                            <span>Усі офіцери</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="home-officers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Officers cards injected here -->
+                </div>
+            </section>
+
+            <!-- Emergency & Contact Numbers Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+                <div class="bg-police-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-800">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                        <div>
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">Екстрені служби</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold mt-2" id="title-emergency-section">Номери екстрених служб та контактів</h2>
+                            <p class="text-slate-300 text-sm mt-1">Швидкий доступ до важливих гарячих ліній Криворізького РУП та комунальних служб</p>
+                        </div>
+                        <div id="admin-emergency-btn" class="hidden mt-4 md:mt-0">
+                            <button onclick="openEmergencyModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-1.5 shadow-sm">
+                                <i class="fa-solid fa-plus"></i><span>Додати контакт</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="emergency-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Emergency cards injected here -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- VIEW: NEWS (Dedicated Full List) -->
+        <div id="view-news" class="view-section hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Усі новини громади</h2>
+                    <p class="text-slate-600 text-sm mt-1">Хроніка подій, звітність та безпекові рекомендації</p>
+                </div>
+                <div id="admin-news-page-btn" class="hidden mt-4 sm:mt-0">
+                    <button onclick="openNewsModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 shadow-sm">
+                        <i class="fa-solid fa-plus"></i><span>Створити новину</span>
+                    </button>
+                </div>
+            </div>
+            <div id="full-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Injected -->
+            </div>
+        </div>
+
+        <!-- VIEW: MANAGEMENT (Dedicated Section) -->
+        <div id="view-management" class="view-section hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Керівництво підрозділу</h2>
+                    <p class="text-slate-600 text-sm mt-1">Контактна інформація та графік прийому громадян керівництвом</p>
+                </div>
+                <div id="admin-management-page-btn" class="hidden mt-4 sm:mt-0">
+                    <button onclick="openManagementModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 shadow-sm">
+                        <i class="fa-solid fa-plus"></i><span>Додати керівника</span>
+                    </button>
+                </div>
+            </div>
+            <div id="full-management-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Injected -->
+            </div>
+        </div>
+
+        <!-- VIEW: OFFICERS (Dedicated Section with Search) -->
+        <div id="view-officers" class="view-section hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-6 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Поліцейські офіцери громади</h2>
+                    <p class="text-slate-600 text-sm mt-1">Знайдіть свого офіцера за районом обслуговування чи прізвищем</p>
+                </div>
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <div id="admin-officer-page-btn" class="hidden">
+                        <button onclick="openOfficerModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 shadow-sm whitespace-nowrap">
+                            <i class="fa-solid fa-plus"></i><span>Додати офіцера</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row gap-4">
+                <div class="relative flex-grow">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="officer-search-input" oninput="filterOfficers()" placeholder="Пошук за прізвищем, районом або адресою станції..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div id="full-officers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Injected -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: Full News Reader -->
+    <div id="news-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 animate-in fade-in zoom-in duration-200">
+            <div class="p-6 sm:p-8 space-y-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span id="modal-news-date" class="text-xs font-semibold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full"></span>
+                        <h2 id="modal-news-title" class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2"></h2>
+                    </div>
+                    <button onclick="closeNewsModal()" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                <div class="rounded-2xl overflow-hidden max-h-[350px] bg-slate-100">
+                    <img id="modal-news-image" src="" alt="News Image" class="w-full h-full object-cover">
+                </div>
+                <div id="modal-news-content" class="text-slate-700 leading-relaxed space-y-4 text-base sm:text-lg whitespace-pre-line">
+                    <!-- Full text content -->
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex justify-end">
+                    <button onclick="closeNewsModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition shadow-sm">
+                        Закрити
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Admin Login -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+                        <i class="fa-solid fa-lock text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Панель адміністратора</h3>
+                        <p class="text-xs text-slate-500">Авторизація для керування контентом</p>
+                    </div>
+                </div>
+                <button onclick="closeLoginModal()" class="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Логін</label>
+                    <input type="text" id="login-username" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Введіть логін">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1.5">Пароль</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Введіть пароль">
+                </div>
+                <div id="login-error" class="text-red-600 text-xs hidden font-medium">Невірний логін або пароль.</div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition shadow-md">
+                    Увійти в систему
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODALS FOR ADMIN CRUD -->
+    <!-- News Admin Modal -->
+    <div id="admin-news-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 id="admin-news-modal-title" class="text-xl font-bold text-slate-900">Додати новину</h3>
+                <button onclick="closeAdminNewsModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-news-form" onsubmit="saveNews(event)" class="space-y-4">
+                <input type="hidden" id="news-edit-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Заголовок новини</label>
+                    <input type="text" id="news-title-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Дата</label>
+                    <input type="text" id="news-date-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="напр. 6 Жовтня, 2026">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">URL зображення</label>
+                    <input type="url" id="news-image-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="https://example.com/image.jpg">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Короткий опис</label>
+                    <textarea id="news-summary-input" rows="2" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Повний текст новини</label>
+                    <textarea id="news-content-input" rows="5" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти новину</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Carousel Admin Modal -->
+    <div id="admin-carousel-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex justify-between items-center">
+                <h3 id="admin-carousel-modal-title" class="text-xl font-bold text-slate-900">Додати слайд</h3>
+                <button onclick="closeAdminCarouselModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-carousel-form" onsubmit="saveCarouselSlide(event)" class="space-y-4">
+                <input type="hidden" id="carousel-edit-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Назва слайда</label>
+                    <input type="text" id="carousel-title-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Безпечне середовище в громаді">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">URL фотографії (не обрізається)</label>
+                    <input type="url" id="carousel-image-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="https://example.com/photo.jpg">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти слайд</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Management Admin Modal -->
+    <div id="admin-management-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 id="admin-management-modal-title" class="text-xl font-bold text-slate-900">Додати керівника</h3>
+                <button onclick="closeAdminManagementModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-management-form" onsubmit="saveManagement(event)" class="space-y-4">
+                <input type="hidden" id="mgmt-edit-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">П.І.П. керівника</label>
+                    <input type="text" id="mgmt-name-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Іванов Іван Іванович">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Посада</label>
+                    <input type="text" id="mgmt-position-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Начальник відділу...">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Номер телефону</label>
+                    <input type="text" id="mgmt-phone-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="+38 (067) 000-00-00">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Дні прийому</label>
+                    <input type="text" id="mgmt-days-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Понеділок, Середа: 10:00 - 14:00">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Місце прийому</label>
+                    <input type="text" id="mgmt-location-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="вул. Героїв АТО, 30">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">URL фотографії</label>
+                    <input type="url" id="mgmt-image-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="https://example.com/avatar.jpg">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти керівника</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Officer Admin Modal -->
+    <div id="admin-officer-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 id="admin-officer-modal-title" class="text-xl font-bold text-slate-900">Додати офіцера громади</h3>
+                <button onclick="closeAdminOfficerModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-officer-form" onsubmit="saveOfficer(event)" class="space-y-4">
+                <input type="hidden" id="officer-edit-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">П.І.П. офіцера</label>
+                    <input type="text" id="officer-name-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Петренко Петро Петрович">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Звання</label>
+                    <input type="text" id="officer-rank-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="капітан поліції">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Район обслуговування</label>
+                    <input type="text" id="officer-district-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Металургійний район">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Територія обслуговування</label>
+                    <input type="text" id="officer-territory-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Соцмісто, сектор №3">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Номер телефону</label>
+                    <input type="text" id="officer-phone-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="+38 (068) 000-00-00">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Адреса поліцейської станції</label>
+                    <input type="text" id="officer-station-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="вул. Соборності, 15">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">URL фотографії</label>
+                    <input type="url" id="officer-image-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="https://example.com/officer.jpg">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти офіцера</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Emergency Admin Modal -->
+    <div id="admin-emergency-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex justify-between items-center">
+                <h3 id="admin-emergency-modal-title" class="text-xl font-bold text-slate-900">Додати контакт служби</h3>
+                <button onclick="closeAdminEmergencyModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-emergency-form" onsubmit="saveEmergency(event)" class="space-y-4">
+                <input type="hidden" id="emergency-edit-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Назва служби</label>
+                    <input type="text" id="emergency-title-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Криворізьке РУП">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Номер телефону</label>
+                    <input type="text" id="emergency-number-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="102 або (0564) 92-00-02">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Опис / Призначення</label>
+                    <input type="text" id="emergency-desc-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="Чергова частина поліції">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Іконка (FontAwesome клас)</label>
+                    <input type="text" id="emergency-icon-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm" placeholder="fa-solid fa-shield">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти контакт</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Section Title Edit Modal (Admin feature for titles and descriptions) -->
+    <div id="admin-titles-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold text-slate-900">Редагувати назву розділу</h3>
+                <button onclick="closeAdminTitlesModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="admin-titles-form" onsubmit="saveSectionTitle(event)" class="space-y-4">
+                <input type="hidden" id="title-key-input">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Нова назва розділу</label>
+                    <input type="text" id="title-value-input" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold transition">Зберегти назву</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-police-950 text-slate-400 py-12 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-white font-bold">Поліцейські офіцери громади</p>
+                    <p class="text-xs text-slate-400">Криворізька міська територіальна громада © 2026</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6 text-sm">
+                <button onclick="router.navigate('home')" class="hover:text-white transition">Головна</button>
+                <button onclick="router.navigate('news')" class="hover:text-white transition">Новини</button>
+                <button onclick="router.navigate('management')" class="hover:text-white transition">Керівництво</button>
+                <button onclick="router.navigate('officers')" class="hover:text-white transition">Офіцери</button>
+            </div>
+            <div class="text-xs text-slate-500">
+                Безпека та правопорядок у кожній громаді
+            </div>
+        </div>
+    </footer>
+
+    <!-- APPLICATION JAVASCRIPT LOGIC -->
+    <script>
+        // Default initial seed data with robust Ukrainian information
+        const defaultData = {
+            headerTitle: "Поліцейські офіцери громади",
+            headerSubtitle: "Криворізької міської територіальної громади",
+            sectionTitles: {
+                carousel: "Безпека громади",
+                news: "Останні новини",
+                management: "Керівництво",
+                officers: "Поліцейські офіцери громади",
+                emergency: "Номери екстрених служб та контактів"
+            },
+            slides: [
+                { id: 1, title: "Безпечна освітнє середовище в школах Кривого Рогу", image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80" },
+                { id: 2, title: "Спільне патрулювання територій громади", image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80" },
+                { id: 3, title: "Зустрічі офіцерів громади з мешканцями мікрорайонів", image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" }
+            ],
+            news: [
+                {
+                    id: 1,
+                    title: "Звіт роботи поліцейських офіцерів громади за місяць",
+                    date: "5 Жовтня, 2026",
+                    image: "https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=800&q=80",
+                    summary: "Проведено понад 40 зустрічей з мешканцями, опрацьовано 120 звернень громадян та забезпечено правопорядок під час масових заходів.",
+                    content: "Протягом звітного періоду поліцейські офіцери Криворізької міської територіальної громади активно реагували на звернення громадян...\n\nОсновну увагу було приділено профілактиці правопорушень у житловому секторі, взаємодії з головами ОСББ та наданню правової допомоги мешканцям віддалених мікрорайонів.\n\nЗавдяки постійній присутності офіцерів на місцях вдалося оперативно вирішити низку побутових конфліктів та попередити правопорушення."
+                },
+                {
+                    id: 2,
+                    title: "Відкриття нового пункту поліцейського офіцера громади",
+                    date: "28 Вересня, 2026",
+                    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
+                    summary: "У межах проєкту відкрито чергову сучасну станцію, яка забезпечить цілодобовий зв'язок з правоохоронцями для мешканців сектора.",
+                    content: "Сучасна поліцейська станція обладнана всім необхідним для комфортного прийому громадян, роботи з документами та оперативної комунікації.\n\nМісцеві жителі тепер можуть звертатися безпосередньо до свого офіцера у зручний час.\n\nСтанція забезпечена спеціальним транспортом та сучасними засобами зв'язку."
+                },
+                {
+                    id: 3,
+                    title: "Безпека дітей: офіцери провели уроки у навчальних закладах",
+                    date: "20 Вересня, 2026",
+                    image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+                    summary: "Школярам нагадали правила безпечної поведінки на дорозі, у побуті та під час повітряної тривоги.",
+                    content: "Офіцери громади провели інтерактивні заняття для учнів шкіл Криворізької громади.\n\nДітям розповіли про базові правила безпеки, порядок дій у разі виявлення підозрілих предметів та куди звертатися по допомогу.\n\nТакі заходи проводяться на регулярній основі для підвищення обізнаності підлітків."
+                }
+            ],
+            management: [
+                {
+                    id: 1,
+                    name: "Коваленко Олександр Васильович",
+                    position: "Начальник відділу взаємодії з громадами РУП",
+                    phone: "+38 (067) 555-12-34",
+                    days: "Понеділок, Середа: 10:00 – 13:00",
+                    location: "м. Кривий Ріг, вул. Героїв АТО, 30",
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Шевченко Марія Іванівна",
+                    position: "Заступник начальника відділу превентивної діяльності",
+                    phone: "+38 (067) 555-56-78",
+                    days: "Вівторок, Четвер: 14:00 – 17:00",
+                    location: "м. Кривий Ріг, вул. Героїв АТО, 30",
+                    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+            officers: [
+                {
+                    id: 1,
+                    name: "Мельник Андрій Олегович",
+                    rank: "капітан поліції",
+                    district: "Металургійний район",
+                    territory: "Соцмісто (сектор №1)",
+                    phone: "+38 (068) 111-22-33",
+                    station: "вул. Соборності, 15",
+                    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Бондаренко Сергій Вікторович",
+                    rank: "майор поліції",
+                    district: "Довгинцівський район",
+                    territory: "Східний-1, 2, 3 (сектор №4)",
+                    phone: "+38 (068) 222-33-44",
+                    station: "вул. Володимира Великого, 42",
+                    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 3,
+                    name: "Ковальчук Тетяна Володимирівна",
+                    rank: "старший лейтенант поліції",
+                    district: "Покровський район",
+                    territory: "5-й Зарічний мікрорайон (сектор №2)",
+                    phone: "+38 (068) 333-44-55",
+                    station: "мкрн 5-й Зарічний, 11",
+                    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 4,
+                    name: "Гриценко Дмитро Олегович",
+                    rank: "капітан поліції",
+                    district: "Центрально-Міський район",
+                    territory: "Центр, Старий місто (сектор №5)",
+                    phone: "+38 (068) 444-55-66",
+                    station: "вул. Поштовий проспект, 22",
+                    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+            emergency: [
+                { id: 1, title: "Екстрена служба поліції", number: "102", description: "Цілодобовий виклик поліції", icon: "fa-solid fa-phone-volume" },
+                { id: 2, title: "Криворізьке РУП", number: "(0564) 92-00-02", description: "Чергова частина районного управління", icon: "fa-solid fa-building-shield" },
+                { id: 3, title: "Гаряча лінія громади", number: "15-20", description: "Контакт-центр міськвиконкому", icon: "fa-solid fa-headset" },
+                { id: 4, title: "Швидка медична допомога", number: "103", description: "Екстрена медична допомога", icon: "fa-solid fa-truck-medical" },
+                { id: 5, title: "Державна служба надзвичайних ситуацій", number: "101", description: "Пожежно-рятувальна служба", icon: "fa-solid fa-fire-extinguisher" },
+                { id: 6, title: "Газова служба", number: "104", description: "Аварійна служба газу", icon: "fa-solid fa-triangle-exclamation" }
+            ]
+        };
+
+        // Load state from localStorage or seed
+        let appData = JSON.parse(localStorage.getItem('krivoy_rog_police_data')) || defaultData;
+        function saveAppData() {
+            localStorage.setItem('krivoy_rog_police_data', JSON.stringify(appData));
+        }
+
+        // Auth state
+        let isAdmin = localStorage.getItem('krivoy_rog_police_auth') === 'true';
+
+        // Carousel state
+        let currentSlideIndex = 0;
+        let slideInterval = null;
+
+        // Router handling views
+        const router = {
+            navigate: function(viewName) {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+                const targetView = document.getElementById(`view-${viewName}`);
+                if (targetView) {
+                    targetView.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                // Update nav styles
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    if (btn.getAttribute('data-target') === viewName) {
+                        btn.classList.add('text-blue-400');
+                        btn.classList.remove('text-slate-300');
+                    } else {
+                        btn.classList.remove('text-blue-400');
+                        btn.classList.add('text-slate-300');
+                    }
+                });
+
+                renderAll();
+            }
+        };
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize App on load
+        window.onload = function() {
+            renderAll();
+            startCarouselTimer();
+            updateAuthUI();
+        };
+
+        function renderAll() {
+            renderStaticTitles();
+            renderCarousel();
+            renderHomeNews();
+            renderFullNews();
+            renderHomeManagement();
+            renderFullManagement();
+            renderHomeOfficers();
+            renderFullOfficers();
+            renderEmergency();
+            updateAdminControlsVisibility();
+        }
+
+        function renderStaticTitles() {
+            document.getElementById('site-header-title').innerText = appData.headerTitle;
+            document.getElementById('site-header-subtitle').innerText = appData.headerSubtitle;
+            
+            // Section titles
+            document.getElementById('title-carousel').innerText = appData.sectionTitles.carousel;
+            document.getElementById('title-news-section').innerText = appData.sectionTitles.news;
+            document.getElementById('title-management-section').innerText = appData.sectionTitles.management;
+            document.getElementById('title-officers-section').innerText = appData.sectionTitles.officers;
+            document.getElementById('title-emergency-section').innerText = appData.sectionTitles.emergency;
+        }
+
+        // Carousel Rendering & Logic
+        function renderCarousel() {
+            const container = document.getElementById('carousel-slides-container');
+            const dotsContainer = document.getElementById('carousel-dots');
+            const titleEl = document.getElementById('carousel-active-title');
+
+            if (!appData.slides || appData.slides.length === 0) {
+                container.innerHTML = `<div class="text-slate-500 p-8">Немає доданих слайдів безпеки.</div>`;
+                titleEl.innerText = "Немає слайдів";
+                dotsContainer.innerHTML = "";
+                return;
+            }
+
+            if (currentSlideIndex >= appData.slides.length) currentSlideIndex = 0;
+
+            let slidesHTML = '';
+            let dotsHTML = '';
+
+            appData.slides.forEach((slide, index) => {
+                const isActive = index === currentSlideIndex;
+                slidesHTML += `
+                    <div class="absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}">
+                        <img src="${slide.image}" alt="${slide.title}" class="w-full h-full object-contain bg-black/90">
+                    </div>
+                `;
+                dotsHTML += `
+                    <button onclick="setSlide(${index})" class="w-3 h-3 rounded-full transition ${isActive ? 'bg-blue-500 w-8' : 'bg-white/40 hover:bg-white/70'}"></button>
+                `;
+            });
+
+            container.innerHTML = slidesHTML;
+            dotsContainer.innerHTML = dotsHTML;
+            titleEl.innerText = appData.slides[currentSlideIndex].title;
+
+            // Admin controls for carousel slide
+            if (isAdmin) {
+                titleEl.innerHTML += `
+                    <span class="ml-3 inline-flex space-x-2">
+                        <button onclick="editCarouselSlide(${appData.slides[currentSlideIndex].id})" class="text-xs bg-blue-600/80 hover:bg-blue-600 text-white px-2 py-1 rounded"><i class="fa-solid fa-pen"></i> Редагувати</button>
+                        <button onclick="deleteCarouselSlide(${appData.slides[currentSlideIndex].id})" class="text-xs bg-red-600/80 hover:bg-red-600 text-white px-2 py-1 rounded"><i class="fa-solid fa-trash"></i> Видалити</button>
+                    </span>
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (!appData.slides.length) return;
+            currentSlideIndex = (currentSlideIndex + 1) % appData.slides.length;
+            renderCarousel();
+            resetCarouselTimer();
+        }
+
+        function prevSlide() {
+            if (!appData.slides.length) return;
+            currentSlideIndex = (currentSlideIndex - 1 + appData.slides.length) % appData.slides.length;
+            renderCarousel();
+            resetCarouselTimer();
+        }
+
+        function setSlide(index) {
+            currentSlideIndex = index;
+            renderCarousel();
+            resetCarouselTimer();
+        }
+
+        function startCarouselTimer() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                if (appData.slides.length > 1) {
+                    currentSlideIndex = (currentSlideIndex + 1) % appData.slides.length;
+                    renderCarousel();
+                }
+            }, 6000);
+        }
+
+        function resetCarouselTimer() {
+            startCarouselTimer();
+        }
+
+        // News Rendering
+        function renderHomeNews() {
+            const grid = document.getElementById('home-news-grid');
+            const recent = appData.news.slice(0, 3);
+            grid.innerHTML = recent.map(item => createNewsCardHTML(item)).join('');
+        }
+
+        function renderFullNews() {
+            const grid = document.getElementById('full-news-grid');
+            grid.innerHTML = appData.news.map(item => createNewsCardHTML(item)).join('');
+        }
+
+        function createNewsCardHTML(item) {
+            let adminActions = '';
+            if (isAdmin) {
+                adminActions = `
+                    <div class="flex space-x-2 mt-4 pt-3 border-t border-slate-100">
+                        <button onclick="editNews(${item.id})" class="flex-1 bg-slate-100 hover:bg-blue-50 text-blue-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-pen"></i><span>Редагувати</span></button>
+                        <button onclick="deleteNews(${item.id})" class="flex-1 bg-slate-100 hover:bg-red-50 text-red-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-trash"></i><span>Видалити</span></button>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition border border-slate-200 overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-100">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider">${item.date}</span>
+                            <h3 class="text-lg font-bold text-slate-900 leading-snug">${item.title}</h3>
+                            <p class="text-slate-600 text-sm line-clamp-3">${item.summary}</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-3">
+                        <button onclick="openFullNews(${item.id})" class="w-full bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center space-x-2">
+                            <span>Читати далі</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        ${adminActions}
+                    </div>
+                </div>
+            `;
+        }
+
+        function openFullNews(id) {
+            const item = appData.news.find(n => n.id === id);
+            if (!item) return;
+            document.getElementById('modal-news-title').innerText = item.title;
+            document.getElementById('modal-news-date').innerText = item.date;
+            document.getElementById('modal-news-image').src = item.image;
+            document.getElementById('modal-news-content').innerText = item.content;
+            document.getElementById('news-modal').classList.remove('hidden');
+            document.getElementById('news-modal').classList.add('flex');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('news-modal').classList.remove('flex');
+            document.getElementById('news-modal').classList.add('hidden');
+        }
+
+        // Management Rendering
+        function renderHomeManagement() {
+            const grid = document.getElementById('home-management-grid');
+            grid.innerHTML = appData.management.map(item => createManagementCardHTML(item)).join('');
+        }
+
+        function renderFullManagement() {
+            const grid = document.getElementById('full-management-grid');
+            grid.innerHTML = appData.management.map(item => createManagementCardHTML(item)).join('');
+        }
+
+        function createManagementCardHTML(item) {
+            let adminActions = '';
+            if (isAdmin) {
+                adminActions = `
+                    <div class="flex space-x-2 mt-4 pt-3 border-t border-slate-100">
+                        <button onclick="editManagement(${item.id})" class="flex-1 bg-slate-100 hover:bg-blue-50 text-blue-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-pen"></i><span>Редагувати</span></button>
+                        <button onclick="deleteManagement(${item.id})" class="flex-1 bg-slate-100 hover:bg-red-50 text-red-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-trash"></i><span>Видалити</span></button>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+                    <div class="w-32 h-32 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-inner">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow space-y-2 text-center sm:text-left w-full">
+                        <h3 class="text-xl font-bold text-slate-900">${item.name}</h3>
+                        <p class="text-blue-600 font-semibold text-sm">${item.position}</p>
+                        
+                        <div class="space-y-1 text-sm text-slate-600 pt-2">
+                            <p class="flex items-center justify-center sm:justify-start space-x-2">
+                                <i class="fa-solid fa-phone text-blue-600 w-5"></i>
+                                <a href="tel:${item.phone}" class="hover:underline font-medium text-slate-800">${item.phone}</a>
+                            </p>
+                            <p class="flex items-center justify-center sm:justify-start space-x-2">
+                                <i class="fa-solid fa-calendar-days text-blue-600 w-5"></i>
+                                <span>${item.days}</span>
+                            </p>
+                            <p class="flex items-center justify-center sm:justify-start space-x-2">
+                                <i class="fa-solid fa-location-dot text-blue-600 w-5"></i>
+                                <span>${item.location}</span>
+                            </p>
+                        </div>
+                        ${adminActions}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Police Officers Rendering & Search
+        function renderHomeOfficers() {
+            const grid = document.getElementById('home-officers-grid');
+            const recent = appData.officers.slice(0, 3);
+            grid.innerHTML = recent.map(item => createOfficerCardHTML(item)).join('');
+        }
+
+        function renderFullOfficers() {
+            const grid = document.getElementById('full-officers-grid');
+            grid.innerHTML = appData.officers.map(item => createOfficerCardHTML(item)).join('');
+        }
+
+        function filterOfficers() {
+            const query = document.getElementById('officer-search-input').value.toLowerCase();
+            const filtered = appData.officers.filter(o => 
+                o.name.toLowerCase().includes(query) ||
+                o.district.toLowerCase().includes(query) ||
+                o.territory.toLowerCase().includes(query) ||
+                o.station.toLowerCase().includes(query) ||
+                o.rank.toLowerCase().includes(query)
+            );
+            const grid = document.getElementById('full-officers-grid');
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">За вашим запитом офіцерів не знайдено.</div>`;
+            } else {
+                grid.innerHTML = filtered.map(item => createOfficerCardHTML(item)).join('');
+            }
+        }
+
+        function createOfficerCardHTML(item) {
+            let adminActions = '';
+            if (isAdmin) {
+                adminActions = `
+                    <div class="flex space-x-2 mt-4 pt-3 border-t border-slate-100">
+                        <button onclick="editOfficer(${item.id})" class="flex-1 bg-slate-100 hover:bg-blue-50 text-blue-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-pen"></i><span>Редагувати</span></button>
+                        <button onclick="deleteOfficer(${item.id})" class="flex-1 bg-slate-100 hover:bg-red-50 text-red-600 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-trash"></i><span>Видалити</span></button>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition border border-slate-200 overflow-hidden flex flex-col justify-between">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-inner">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full">${item.rank}</span>
+                                <h3 class="text-lg font-bold text-slate-900 mt-1 leading-snug">${item.name}</h3>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-sm text-slate-600 pt-2 border-t border-slate-100">
+                            <p class="flex items-start space-x-2">
+                                <i class="fa-solid fa-map-location-dot text-blue-600 w-5 mt-0.5"></i>
+                                <span><strong class="text-slate-800">Район:</strong> ${item.district}</span>
+                            </p>
+                            <p class="flex items-start space-x-2">
+                                <i class="fa-solid fa-route text-blue-600 w-5 mt-0.5"></i>
+                                <span><strong class="text-slate-800">Територія обслуговування:</strong> ${item.territory}</span>
+                            </p>
+                            <p class="flex items-start space-x-2">
+                                <i class="fa-solid fa-house-chimney text-blue-600 w-5 mt-0.5"></i>
+                                <span><strong class="text-slate-800">Поліцейська станція:</strong> ${item.station}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 space-y-3">
+                        <a href="tel:${item.phone}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fa-solid fa-phone"></i><span>${item.phone}</span>
+                        </a>
+                        ${adminActions}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEmergency() {
+            const grid = document.getElementById('emergency-grid');
+            grid.innerHTML = appData.emergency.map(item => {
+                let adminActions = '';
+                if (isAdmin) {
+                    adminActions = `
+                        <div class="flex space-x-2 mt-4 pt-3 border-t border-slate-800">
+                            <button onclick="editEmergency(${item.id})" class="flex-1 bg-slate-800 hover:bg-blue-900 text-blue-400 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-pen"></i><span>Редагувати</span></button>
+                            <button onclick="deleteEmergency(${item.id})" class="flex-1 bg-slate-800 hover:bg-red-900 text-red-400 font-medium py-1.5 rounded-lg text-xs transition flex items-center justify-center space-x-1"><i class="fa-solid fa-trash"></i><span>Видалити</span></button>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="bg-police-950/80 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-blue-500 transition">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-lg">
+                                    <i class="${item.icon}"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">${item.title}</h4>
+                                    <p class="text-xs text-slate-400">${item.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="tel:${item.number}" class="text-xl sm:text-2xl font-bold text-blue-400 hover:text-blue-300 transition flex items-center space-x-2 mt-2">
+                                <i class="fa-solid fa-phone text-sm"></i>
+                                <span>${item.number}</span>
+                            </a>
+                            ${adminActions}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Authentication Functions
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.remove('flex');
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            if (username === 'mccarth1' && password === 'ABC1997q') {
+                isAdmin = true;
+                localStorage.setItem('krivoy_rog_police_auth', 'true');
+                closeLoginModal();
+                updateAuthUI();
+                renderAll();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            localStorage.removeItem('krivoy_rog_police_auth');
+            updateAuthUI();
+            renderAll();
+        }
+
+        function updateAuthUI() {
+            const widget = document.getElementById('admin-auth-widget');
+            if (isAdmin) {
+                widget.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-green-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center space-x-1">
+                            <i class="fa-solid fa-user-shield"></i><span>Адмін</span>
+                        </span>
+                        <button onclick="logout()" class="bg-red-600/80 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition">
+                            Вийти
+                        </button>
+                    </div>
+                `;
+            } else {
+                widget.innerHTML = `
+                    <button onclick="openLoginModal()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span class="hidden sm:inline">Увійти</span>
+                    </button>
+                `;
+            }
+        }
+
+        function updateAdminControlsVisibility() {
+            const adminBtns = [
+                'admin-carousel-btn', 'admin-news-btn', 'admin-news-page-btn',
+                'admin-mgmt-btn', 'admin-management-page-btn',
+                'admin-officer-btn', 'admin-officer-page-btn', 'admin-emergency-btn'
+            ];
+
+            adminBtns.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (isAdmin) el.classList.remove('hidden');
+                    else el.classList.add('hidden');
+                }
+            });
+        }
+
+        // --- NEWS CRUD ---
+        function openNewsModal() {
+            document.getElementById('news-edit-id').value = '';
+            document.getElementById('admin-news-form').reset();
+            document.getElementById('admin-news-modal-title').innerText = 'Додати новину';
+            document.getElementById('admin-news-modal').classList.remove('hidden');
+            document.getElementById('admin-news-modal').classList.add('flex');
+        }
+        function closeAdminNewsModal() {
+            document.getElementById('admin-news-modal').classList.remove('flex');
+            document.getElementById('admin-news-modal').classList.add('hidden');
+        }
+        function saveNews(e) {
+            e.preventDefault();
+            const id = document.getElementById('news-edit-id').value;
+            const title = document.getElementById('news-title-input').value;
+            const date = document.getElementById('news-date-input').value;
+            const image = document.getElementById('news-image-input').value;
+            const summary = document.getElementById('news-summary-input').value;
+            const content = document.getElementById('news-content-input').value;
+
+            if (id) {
+                const item = appData.news.find(n => n.id == id);
+                if (item) {
+                    item.title = title;
+                    item.date = date;
+                    item.image = image;
+                    item.summary = summary;
+                    item.content = content;
+                }
+            } else {
+                const newItem = {
+                    id: Date.now(),
+                    title, date, image, summary, content
+                };
+                appData.news.unshift(newItem);
+            }
+            saveAppData();
+            closeAdminNewsModal();
+            renderAll();
+        }
+        function editNews(id) {
+            const item = appData.news.find(n => n.id === id);
+            if (!item) return;
+            document.getElementById('news-edit-id').value = item.id;
+            document.getElementById('news-title-input').value = item.title;
+            document.getElementById('news-date-input').value = item.date;
+            document.getElementById('news-image-input').value = item.image;
+            document.getElementById('news-summary-input').value = item.summary;
+            document.getElementById('news-content-input').value = item.content;
+            document.getElementById('admin-news-modal-title').innerText = 'Редагувати новину';
+            document.getElementById('admin-news-modal').classList.remove('hidden');
+            document.getElementById('admin-news-modal').classList.add('flex');
+        }
+        function deleteNews(id) {
+            if (confirm("Ви впевнені, що хочете видалити цю новину?")) {
+                appData.news = appData.news.filter(n => n.id !== id);
+                saveAppData();
+                renderAll();
+            }
+        }
+
+        // --- CAROUSEL CRUD ---
+        function openCarouselModal() {
+            document.getElementById('carousel-edit-id').value = '';
+            document.getElementById('admin-carousel-form').reset();
+            document.getElementById('admin-carousel-modal-title').innerText = 'Додати слайд';
+            document.getElementById('admin-carousel-modal').classList.remove('hidden');
+            document.getElementById('admin-carousel-modal').classList.add('flex');
+        }
+        function closeAdminCarouselModal() {
+            document.getElementById('admin-carousel-modal').classList.remove('flex');
+            document.getElementById('admin-carousel-modal').classList.add('hidden');
+        }
+        function saveCarouselSlide(e) {
+            e.preventDefault();
+            const id = document.getElementById('carousel-edit-id').value;
+            const title = document.getElementById('carousel-title-input').value;
+            const image = document.getElementById('carousel-image-input').value;
+
+            if (id) {
+                const item = appData.slides.find(s => s.id == id);
+                if (item) {
+                    item.title = title;
+                    item.image = image;
+                }
+            } else {
+                const newItem = { id: Date.now(), title, image };
+                appData.slides.push(newItem);
+            }
+            saveAppData();
+            closeAdminCarouselModal();
+            renderCarousel();
+        }
+        function editCarouselSlide(id) {
+            const item = appData.slides.find(s => s.id === id);
+            if (!item) return;
+            document.getElementById('carousel-edit-id').value = item.id;
+            document.getElementById('carousel-title-input').value = item.title;
+            document.getElementById('carousel-image-input').value = item.image;
+            document.getElementById('admin-carousel-modal-title').innerText = 'Редагувати слайд';
+            document.getElementById('admin-carousel-modal').classList.remove('hidden');
+            document.getElementById('admin-carousel-modal').classList.add('flex');
+        }
+        function deleteCarouselSlide(id) {
+            if (confirm("Ви впевнені, що хочете видалити цей слайд?")) {
+                appData.slides = appData.slides.filter(s => s.id !== id);
+                saveAppData();
+                renderCarousel();
+            }
+        }
+
+        // --- MANAGEMENT CRUD ---
+        function openManagementModal() {
+            document.getElementById('mgmt-edit-id').value = '';
+            document.getElementById('admin-management-form').reset();
+            document.getElementById('admin-management-modal-title').innerText = 'Додати керівника';
+            document.getElementById('admin-management-modal').classList.remove('hidden');
+            document.getElementById('admin-management-modal').classList.add('flex');
+        }
+        function closeAdminManagementModal() {
+            document.getElementById('admin-management-modal').classList.remove('flex');
+            document.getElementById('admin-management-modal').classList.add('hidden');
+        }
+        function saveManagement(e) {
+            e.preventDefault();
+            const id = document.getElementById('mgmt-edit-id').value;
+            const name = document.getElementById('mgmt-name-input').value;
+            const position = document.getElementById('mgmt-position-input').value;
+            const phone = document.getElementById('mgmt-phone-input').value;
+            const days = document.getElementById('mgmt-days-input').value;
+            const location = document.getElementById('mgmt-location-input').value;
+            const image = document.getElementById('mgmt-image-input').value;
+
+            if (id) {
+                const item = appData.management.find(m => m.id == id);
+                if (item) {
+                    item.name = name;
+                    item.position = position;
+                    item.phone = phone;
+                    item.days = days;
+                    item.location = location;
+                    item.image = image;
+                }
+            } else {
+                const newItem = { id: Date.now(), name, position, phone, days, location, image };
+                appData.management.push(newItem);
+            }
+            saveAppData();
+            closeAdminManagementModal();
+            renderAll();
+        }
+        function editManagement(id) {
+            const item = appData.management.find(m => m.id === id);
+            if (!item) return;
+            document.getElementById('mgmt-edit-id').value = item.id;
+            document.getElementById('mgmt-name-input').value = item.name;
+            document.getElementById('mgmt-position-input').value = item.position;
+            document.getElementById('mgmt-phone-input').value = item.phone;
+            document.getElementById('mgmt-days-input').value = item.days;
+            document.getElementById('mgmt-location-input').value = item.location;
+            document.getElementById('mgmt-image-input').value = item.image;
+            document.getElementById('admin-management-modal-title').innerText = 'Редагувати керівника';
+            document.getElementById('admin-management-modal').classList.remove('hidden');
+            document.getElementById('admin-management-modal').classList.add('flex');
+        }
+        function deleteManagement(id) {
+            if (confirm("Ви впевнені, що хочете видалити цього керівника?")) {
+                appData.management = appData.management.filter(m => m.id !== id);
+                saveAppData();
+                renderAll();
+            }
+        }
+
+        // --- OFFICER CRUD ---
+        function openOfficerModal() {
+            document.getElementById('officer-edit-id').value = '';
+            document.getElementById('admin-officer-form').reset();
+            document.getElementById('admin-officer-modal-title').innerText = 'Додати офіцера громади';
+            document.getElementById('admin-officer-modal').classList.remove('hidden');
+            document.getElementById('admin-officer-modal').classList.add('flex');
+        }
+        function closeAdminOfficerModal() {
+            document.getElementById('admin-officer-modal').classList.remove('flex');
+            document.getElementById('admin-officer-modal').classList.add('hidden');
+        }
+        function saveOfficer(e) {
+            e.preventDefault();
+            const id = document.getElementById('officer-edit-id').value;
+            const name = document.getElementById('officer-name-input').value;
+            const rank = document.getElementById('officer-rank-input').value;
+            const district = document.getElementById('officer-district-input').value;
+            const territory = document.getElementById('officer-territory-input').value;
+            const phone = document.getElementById('officer-phone-input').value;
+            const station = document.getElementById('officer-station-input').value;
+            const image = document.getElementById('officer-image-input').value;
+
+            if (id) {
+                const item = appData.officers.find(o => o.id == id);
+                if (item) {
+                    item.name = name;
+                    item.rank = rank;
+                    item.district = district;
+                    item.territory = territory;
+                    item.phone = phone;
+                    item.station = station;
+                    item.image = image;
+                }
+            } else {
+                const newItem = { id: Date.now(), name, rank, district, territory, phone, station, image };
+                appData.officers.push(newItem);
+            }
+            saveAppData();
+            closeAdminOfficerModal();
+            renderAll();
+        }
+        function editOfficer(id) {
+            const item = appData.officers.find(o => o.id === id);
+            if (!item) return;
+            document.getElementById('officer-edit-id').value = item.id;
+            document.getElementById('officer-name-input').value = item.name;
+            document.getElementById('officer-rank-input').value = item.rank;
+            document.getElementById('officer-district-input').value = item.district;
+            document.getElementById('officer-territory-input').value = item.territory;
+            document.getElementById('officer-phone-input').value = item.phone;
+            document.getElementById('officer-station-input').value = item.station;
+            document.getElementById('officer-image-input').value = item.image;
+            document.getElementById('admin-officer-modal-title').innerText = 'Редагувати офіцера';
+            document.getElementById('admin-officer-modal').classList.remove('hidden');
+            document.getElementById('admin-officer-modal').classList.add('flex');
+        }
+        function deleteOfficer(id) {
+            if (confirm("Ви впевнені, що хочете видалити цього офіцера?")) {
+                appData.officers = appData.officers.filter(o => o.id !== id);
+                saveAppData();
+                renderAll();
+            }
+        }
+
+        // --- EMERGENCY CRUD ---
+        function openEmergencyModal() {
+            document.getElementById('emergency-edit-id').value = '';
+            document.getElementById('admin-emergency-form').reset();
+            document.getElementById('admin-emergency-modal-title').innerText = 'Додати контакт служби';
+            document.getElementById('admin-emergency-modal').classList.remove('hidden');
+            document.getElementById('admin-emergency-modal').classList.add('flex');
+        }
+        function closeAdminEmergencyModal() {
+            document.getElementById('admin-emergency-modal').classList.remove('flex');
+            document.getElementById('admin-emergency-modal').classList.add('hidden');
+        }
+        function saveEmergency(e) {
+            e.preventDefault();
+            const id = document.getElementById('emergency-edit-id').value;
+            const title = document.getElementById('emergency-title-input').value;
+            const number = document.getElementById('emergency-number-input').value;
+            const description = document.getElementById('emergency-desc-input').value;
+            const icon = document.getElementById('emergency-icon-input').value;
+
+            if (id) {
+                const item = appData.emergency.find(em => em.id == id);
+                if (item) {
+                    item.title = title;
+                    item.number = number;
+                    item.description = description;
+                    item.icon = icon;
+                }
+            } else {
+                const newItem = { id: Date.now(), title, number, description, icon };
+                appData.emergency.push(newItem);
+            }
+            saveAppData();
+            closeAdminEmergencyModal();
+            renderEmergency();
+        }
+        function editEmergency(id) {
+            const item = appData.emergency.find(em => em.id === id);
+            if (!item) return;
+            document.getElementById('emergency-edit-id').value = item.id;
+            document.getElementById('emergency-title-input').value = item.title;
+            document.getElementById('emergency-number-input').value = item.number;
+            document.getElementById('emergency-desc-input').value = item.description;
+            document.getElementById('emergency-icon-input').value = item.icon;
+            document.getElementById('admin-emergency-modal-title').innerText = 'Редагувати контакт';
+            document.getElementById('admin-emergency-modal').classList.remove('hidden');
+            document.getElementById('admin-emergency-modal').classList.add('flex');
+        }
+        function deleteEmergency(id) {
+            if (confirm("Ви впевнені, що хочете видалити цей контакт?")) {
+                appData.emergency = appData.emergency.filter(em => em.id !== id);
+                saveAppData();
+                renderEmergency();
+            }
+        }
+    </script>
+</body>
+</html>
